@@ -71,7 +71,7 @@ def option_1():
 # Login using the access token
 def login_with_token(access_token):
     # Make a GET request to the Facebook Graph API
-    api_url = "https://graph.facebook.com/v13.0/me?access_token=" + access_token
+    api_url = "https://graph.facebook.com/v13.0/me?fields=name&access_token=" + access_token
     response = requests.get(api_url)
     
     # Parse the JSON response
