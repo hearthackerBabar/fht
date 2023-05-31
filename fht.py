@@ -92,7 +92,7 @@ def get_profile_name(profile_link):
         user_id = user_id_match.group(1)
 
         # Make a GET request to the Facebook Graph API
-        api_url = f"https://graph.facebook.com/{user_id}"
+        api_url = "https://graph.facebook.com/{user_id}"
         response = requests.get(api_url)
 
         # Parse the JSON response
