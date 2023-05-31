@@ -50,7 +50,7 @@ def option_1():
     account_name = login_with_token(access_token)
     
     if account_name:
-        print("Welcome, " + account_name)
+        print("Welcome, {}!".format(account_name))
         print()
         print("Please paste the Facebook account link:")
         account_link = raw_input("Link: ")
@@ -59,7 +59,7 @@ def option_1():
         profile_name = get_profile_name(account_link)
         
         if profile_name:
-            print("Profile Name: " + profile_name)
+            print("Profile Name: {}".format(profile_name))
         else:
             print("Failed to retrieve profile name.")
     else:
@@ -90,7 +90,7 @@ def get_profile_name(profile_link):
     
     if user_id:
         # Make a GET request to the Facebook Graph API
-        api_url = "https://graph.facebook.com/{user_id.group(1)}"
+        api_url = "https://graph.facebook.com/{}".format(user_id.group(1))
         response = requests.get(api_url)
 
         # Parse the JSON response
@@ -117,7 +117,8 @@ def option_3():
     print_navbar()
     print("This is Option 3.")
     print()
-    raw_input("Press Enter to continue...")
+raw_input("Press Enter to continue...")
+main_menu()
 
 # Main execution
 main_menu()
