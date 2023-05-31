@@ -65,5 +65,5 @@ send_friend_request() {
     get_account_link
 }
 
-# Main execution
+# Main executio
 menu
