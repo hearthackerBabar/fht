@@ -1,64 +1,67 @@
 #!/usr/bin/env python2
 
-# Navbar for Termux Tool
+import os
 
-# Print the navbar
+# Clear the screen
+def clear_screen():
+    os.system('clear')
+
+# Function to display the navbar
 def print_navbar():
     print("===============================")
-    print("         Facebook Tool         ")
+    print("        Termux Tool (Python 2) ")
     print("===============================")
-    print
+    print()
 
-# Menu
-def menu():
-    clear()
+# Main menu
+def main_menu():
+    clear_screen()
     print_navbar()
-    print("1. Extract user's public information")
-    print("2. Download user's profile picture")
-    print("3. Send friend request")
+    print("1. Option 1")
+    print("2. Option 2")
+    print("3. Option 3")
     print("4. Exit")
-    print
+    print()
     choice = raw_input("Enter your choice: ")
     if choice == '1':
-        extract_info()
+        option_1()
     elif choice == '2':
-        download_profile_picture()
+        option_2()
     elif choice == '3':
-        send_friend_request()
+        option_3()
     elif choice == '4':
         exit()
     else:
         print("Invalid choice. Please try again.")
-        menu()
+        raw_input("Press Enter to continue...")
+        main_menu()
 
-# Get Facebook account link from the user
-def get_account_link():
-    clear()
+# Example option 1
+def option_1():
+    clear_screen()
     print_navbar()
-    account_link = raw_input("Paste the user's Facebook account link: ")
-    print
-    user_name = raw_input("Enter the user's name: ")
-    print
-    user_id = raw_input("Enter the user's ID number: ")
-    print
-    print("Account link: " + account_link)
-    print("Name: " + user_name)
-    print("ID Number: " + user_id)
-    print
+    print("This is Option 1.")
+    print()
     raw_input("Press Enter to continue...")
-    menu()
+    main_menu()
 
-# Extract user's public information
-def extract_info():
-    get_account_link()
+# Example option 2
+def option_2():
+    clear_screen()
+    print_navbar()
+    print("This is Option 2.")
+    print()
+    raw_input("Press Enter to continue...")
+    main_menu()
 
-# Download user's profile picture
-def download_profile_picture():
-    get_account_link()
-
-# Send friend request
-def send_friend_request():
-    get_account_link()
+# Example option 3
+def option_3():
+    clear_screen()
+    print_navbar()
+    print("This is Option 3.")
+    print()
+    raw_input("Press Enter to continue...")
+    main_menu()
 
 # Main execution
-menu()
+main_menu()
