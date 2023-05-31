@@ -44,44 +44,19 @@ def option_1():
     raw_input("Press Enter to continue...")
     clear_screen()
     print_navbar()
-    access_token = raw_input("Enter your Facebook access token: ")
-    
-    # Login using the access token
-    account_name = login_with_token(access_token)
-    
-    if account_name:
-        print("Welcome, " + account_name)
-        print()
-        print("Please paste the Facebook account link:")
-        account_link = raw_input("Link: ")
-        
-        # Extract Facebook profile name from profile link
-        profile_name = get_profile_name(account_link)
-        
-        if profile_name:
-            print("Profile Name: " + profile_name)
-        else:
-            print("Failed to retrieve profile name.")
+    print("Please paste the Facebook account link:")
+    account_link = raw_input("Link: ")
+
+    # Retrieve profile first name and last name
+    profile_name = get_profile_name(account_link)
+
+    if profile_name:
+        print("Profile Name: " + profile_name)
     else:
-        print("Login failed. Please check your access token.")
-    
+        print("Failed to retrieve profile name.")
+
     raw_input("Press Enter to continue...")
     main_menu()
-
-# Login using the access token
-def login_with_token(access_token):
-    # Make a GET request to the Facebook Graph API
-    api_url = "https://graph.facebook.com/v13.0/me?fields=name&access_token=" + access_token
-    response = requests.get(api_url)
-    
-    # Parse the JSON response
-    data = response.json()
-    
-    # Check if login was successful
-    if response.status_code == 200 and "name" in data:
-        return data["name"]
-    else:
-        return None
 
 # Retrieve profile first name and last name from Facebook profile
 def get_profile_name(profile_link):
@@ -92,7 +67,7 @@ def get_profile_name(profile_link):
         user_id = user_id_match.group(1)
 
         # Make a GET request to the Facebook Graph API
-        api_url = "https://graph.facebook.com/{user_id}"
+        api_url = "https://graph.facebook.com/{}".format(user_id)
         response = requests.get(api_url)
 
         # Parse the JSON response
@@ -102,7 +77,7 @@ def get_profile_name(profile_link):
         if response.status_code == 200 and "first_name" in data and "last_name" in data:
             first_name = data["first_name"]
             last_name = data["last_name"]
-            return f"{first_name} {last_name}"
+            return "{} {}".format(first_name, last_name)
 
     return None
 
