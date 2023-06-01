@@ -24,7 +24,7 @@ def main_menu():
     print("3. Option 3")
     print("4. Exit")
     print()
-    choice = input("Enter your choice: ")
+    choice = raw_input("Enter your choice: ")
     if choice == '1':
         option_1()
     elif choice == '2':
