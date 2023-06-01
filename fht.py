@@ -103,6 +103,10 @@ def get_profile_name(profile_link):
     
     return None, None
 
+# Main entry point
+if __name__ == "__main__":
+    main_menu()
+
 # Example option 2
 def option_2():
     clear_screen()
