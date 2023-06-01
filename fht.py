@@ -1,6 +1,7 @@
 import os
 import requests
 import re
+import json
 
 # Clear the screen
 def clear_screen():
@@ -24,7 +25,7 @@ def main_menu():
     print("3. Option 3")
     print("4. Exit")
     print()
-    choice = input("Enter your choice: ")
+    choice = raw_input("Enter your choice: ")
     if choice == '1':
         option_1()
     elif choice == '2':
@@ -32,7 +33,7 @@ def main_menu():
     elif choice == '3':
         option_3()
     elif choice == '4':
-        exit_program()
+        exit()
     else:
         print("Invalid choice. Please try again.")
         input("Press Enter to continue...")
@@ -52,20 +53,47 @@ def option_1():
     account_name = login_with_token(access_token)
     
     if account_name:
-        print("Welcome, " + account_name)
+        print("Welcome, {}!".format(account_name))
         print()
         print("Please paste the Facebook account link:")
         account_link = input("Link: ")
         
         # Extract Facebook profile name from profile link
-        profile_name = get_profile_name(account_link)
+        first_name, last_name = get_profile_name(account_link)
         
-        if profile_name:
-            print("Profile Name: " + profile_name)
+        if first_name and last_name:
+            profile_name = "{} {}".format(first_name, last_name)
+            print("Profile Name: {}".format(profile_name))
         else:
             print("Failed to retrieve profile name.")
     else:
         print("Login failed. Please check your access token.")
+    
+    input("Press Enter to continue...")
+    main_menu()
+
+# Example option 2
+def option_2():
+    clear_screen()
+    print_navbar()
+    print("You Have Selected Option No.2")
+    input("Press Enter to continue...")
+    clear_screen()
+    print_navbar()
+    # Add your code for option 2 here
+    
+    input("Press Enter to continue...")
+    main_menu()
+
+# Example option 3
+def option_3():
+    clear_screen()
+    print_navbar()
+    print("You Have Selected Option No.3")
+    input("Press Enter to continue...")
+    clear_screen()
+    print_navbar()
+    # Add your code for option 3 here
     
     input("Press Enter to continue...")
     main_menu()
@@ -91,42 +119,19 @@ def get_profile_name(profile_link):
     user_id = re.search(r"(?<=facebook\.com\/)(\d+)", profile_link)
     
     if user_id:
-        # Make a GET request to the Facebook Graph API
-        api_url = "https://graph.facebook.com/" + user_id.group(1)
+        # Make a GET request to the Facebook API
+        api_url = "https://graph.facebook.com/{user_id.group(1)}"
         response = requests.get(api_url)
 
         # Parse the JSON response
         data = response.json()
 
         # Check if profile exists and retrieve the name
-        if response.status_code == 200 and "name" in data:
-            return data["name"]
+        if response.status_code == 200 and "first_name" in data and "last_name" in data:
+            return data["first_name"], data["last_name"]
     
-    return None
+    return None, None
 
-# Example option 2
-def option_2():
-    clear_screen()
-    print_navbar()
-    print("This is Option 2.")
-    print()
-    input("Press Enter to continue...")
+# Main entry point
+if __name__ == "__main__":
     main_menu()
-
-# Example option 3
-def option_3():
-    clear_screen()
-    print_navbar()
-    print("This is Option 3.")
-    print()
-    input("Press Enter to continue...")
-
-# Exit program
-def exit_program():
-    clear_screen()
-    print_navbar()
-    print("Exiting the program. Goodbye!")
-    # Add any additional cleanup or closing operations if needed
-
-# Main execution
-main_menu()
