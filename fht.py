@@ -85,6 +85,10 @@ def login_with_token(access_token):
     else:
         return None
 
+# Retrieve Facebook profile link
+        print("Please paste the Facebook account link:")
+        account_link = raw_input("Link: ")
+        
         # Extract Facebook profile name from profile link
         first_name, last_name = get_profile_name(account_link)
         
@@ -95,7 +99,6 @@ def login_with_token(access_token):
     
     raw_input("Press Enter to continue...")
     main_menu()
-
 # Example option 2
 def option_2():
     clear_screen()
