@@ -24,7 +24,7 @@ def main_menu():
     print("3. Option 3")
     print("4. Exit")
     print()
-    choice = raw_input("Enter your choice: ")
+    choice = input("Enter your choice: ")
     if choice == '1':
         option_1()
     elif choice == '2':
@@ -32,10 +32,10 @@ def main_menu():
     elif choice == '3':
         option_3()
     elif choice == '4':
-        exit()
+        exit_program()
     else:
         print("Invalid choice. Please try again.")
-        raw_input("Press Enter to continue...")
+        input("Press Enter to continue...")
         main_menu()
 
 # Example option 1
@@ -52,17 +52,16 @@ def option_1():
     account_name = login_with_token(access_token)
     
     if account_name:
-        print("Welcome, {}!".format(account_name))
+        print("Welcome, " + account_name)
         print()
         print("Please paste the Facebook account link:")
         account_link = input("Link: ")
         
         # Extract Facebook profile name from profile link
-        first_name, last_name = get_profile_name(account_link)
+        profile_name = get_profile_name(account_link)
         
-        if first_name and last_name:
-            profile_name = "{} {}".format(first_name, last_name)
-            print("Profile Name: {}".format(profile_name))
+        if profile_name:
+            print("Profile Name: " + profile_name)
         else:
             print("Failed to retrieve profile name.")
     else:
@@ -92,20 +91,18 @@ def get_profile_name(profile_link):
     user_id = re.search(r"(?<=facebook\.com\/)(\d+)", profile_link)
     
     if user_id:
-        # Make a GET request to the Facebook API
-        api_url = "https://graph.facebook.com/{}".format(user_id.group(1))
+        # Make a GET request to the Facebook Graph API
+        api_url = "https://graph.facebook.com/" + user_id.group(1)
         response = requests.get(api_url)
-        
+
         # Parse the JSON response
         data = response.json()
-        
+
         # Check if profile exists and retrieve the name
         if response.status_code == 200 and "name" in data:
-            name_parts = data["name"].split()
-            if len(name_parts) >= 2:
-                return name_parts[0], name_parts[-1]
+            return data["name"]
     
-    return None, None
+    return None
 
 # Example option 2
 def option_2():
@@ -123,7 +120,13 @@ def option_3():
     print("This is Option 3.")
     print()
     input("Press Enter to continue...")
-    main_menu()
+
+# Exit program
+def exit_program():
+    clear_screen()
+    print_navbar()
+    print("Exiting the program. Goodbye!")
+    # Add any additional cleanup or closing operations if needed
 
 # Main execution
 main_menu()
