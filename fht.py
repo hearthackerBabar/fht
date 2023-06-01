@@ -92,18 +92,17 @@ def get_profile_name(profile_link):
     
     if user_id:
         # Make a GET request to the Facebook Graph API
-        api_url = "https://graph.facebook.com/{user_id.group(1)}"
+        api_url = "https://graph.facebook.com/" + user_id.group(1)
         response = requests.get(api_url)
 
         # Parse the JSON response
         data = response.json()
 
         # Check if profile exists and retrieve the name
-        if response.status_code == 200 and "first_name" in data and "last_name" in data:
-            return data["first_name"] + " " + data["last_name"]
+        if response.status_code == 200 and "name" in data:
+            return data["name"]
     
     return None
-
 
 # Example option 2
 def option_2():
