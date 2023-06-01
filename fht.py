@@ -10,35 +10,32 @@ def clear_screen():
 def print_navbar():
     print("===============================")
     print("      Welcome To FHT Tool      ")
+    print("      Owner : Babar Ali        ")
+    print("      Phone No. 03000448415    ")
     print("===============================")
     print()
 
 # Main menu
 def main_menu():
-    while True:
-        clear_screen()
-        print_navbar()
-        print("1. FB Cracking")
-        print("2. Option 2")
-        print("3. Option 3")
-        print("4. Exit")
-        print()
-        choice = input("Enter your choice: ")
-        
-        if choice == '1':
-            option_1()
-        elif choice == '2':
-            option_2()
-        elif choice == '3':
-            option_3()
-        elif choice == '4':
-            print("Exiting the program...")
-            break
-        else:
-            print("Invalid choice. Please try again.")
-        
-        input("Press Enter to continue...")
-
+    clear_screen()
+    print_navbar()
+    print("1. FB Cracking")
+    print("2. Option 2")
+    print("3. Option 3")
+    print("4. Exit")
+    print()
+    choice = raw_input("Enter your choice: ")
+    if choice == '1':
+        option_1()
+    elif choice == '2':
+        option_2()
+    elif choice == '3':
+        option_3()
+    elif choice == '4':
+        exit()
+    else:
+        print("Invalid choice. Please try again.")
+        raw_input("Press Enter to continue...")
         main_menu()
 
 # Example option 1
