@@ -1,6 +1,7 @@
 import os
 import requests
 import re
+import json
 
 # Clear the screen
 def clear_screen():
@@ -22,7 +23,7 @@ def main_menu():
     print("3. Option 3")
     print("4. Exit")
     print()
-    choice = raw_input("Enter your choice: ")
+    choice = input("Enter your choice: ")
     if choice == '1':
         option_1()
     elif choice == '2':
@@ -33,7 +34,7 @@ def main_menu():
         exit()
     else:
         print("Invalid choice. Please try again.")
-        raw_input("Press Enter to continue...")
+        input("Press Enter to continue...")
         main_menu()
 
 # Example option 1
@@ -41,10 +42,10 @@ def option_1():
     clear_screen()
     print_navbar()
     print("You Have Selected Option No.1 FB Cracking")
-    raw_input("Press Enter to continue...")
+    input("Press Enter to continue...")
     clear_screen()
     print_navbar()
-    access_token = raw_input("Enter your Facebook access token: ")
+    access_token = input("Enter your Facebook access token: ")
     
     # Login using the access token
     account_name = login_with_token(access_token)
@@ -53,19 +54,20 @@ def option_1():
         print("Welcome, {}!".format(account_name))
         print()
         print("Please paste the Facebook account link:")
-        account_link = raw_input("Link: ")
+        account_link = input("Link: ")
         
         # Extract Facebook profile name from profile link
-        profile_name = get_profile_name(account_link)
+        first_name, last_name = get_profile_name(account_link)
         
-        if profile_name:
+        if first_name and last_name:
+            profile_name = "{} {}".format(first_name, last_name)
             print("Profile Name: {}".format(profile_name))
         else:
             print("Failed to retrieve profile name.")
     else:
         print("Login failed. Please check your access token.")
     
-    raw_input("Press Enter to continue...")
+    input("Press Enter to continue...")
     main_menu()
 
 # Login using the access token
@@ -89,18 +91,24 @@ def get_profile_name(profile_link):
     user_id = re.search(r"(?<=facebook\.com\/)(\d+)", profile_link)
     
     if user_id:
-        # Make a GET request to the Facebook Graph API
-        api_url = "https://graph.facebook.com/{}".format(user_id.group(1))
+        # Make a GET request to the Facebook API
+        api_url = "https://graph.facebook.com/{user_id.group(1)}"
         response = requests.get(api_url)
-
+        
         # Parse the JSON response
         data = response.json()
-
+        
         # Check if profile exists and retrieve the name
         if response.status_code == 200 and "name" in data:
-            return data["name"]
+            name_parts = data["name"].split()
+            if len(name_parts) >= 2:
+                return name_parts[0], name_parts[-1]
     
-    return None
+    return None, None
+
+# Rest of the code remains the same...
+
+
 
 # Example option 2
 def option_2():
