@@ -23,7 +23,7 @@ def main_menu():
     print("3. Option 3")
     print("4. Exit")
     print()
-    choice = input("Enter your choice: ")
+    choice = input("Enter your choice: ")  # Update raw_input to input for Python 3 compatibility
     if choice == '1':
         option_1()
     elif choice == '2':
@@ -35,7 +35,7 @@ def main_menu():
     else:
         print("Invalid choice. Please try again.")
         input("Press Enter to continue...")
-        main_menu()
+    main_menu()
 
 # Example option 1
 def option_1():
@@ -105,6 +105,7 @@ def get_profile_name(profile_link):
                 return name_parts[0], name_parts[-1]
     
     return None, None
+main_menu()
 
 # Example option 2
 def option_2():
