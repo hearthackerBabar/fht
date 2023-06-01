@@ -10,7 +10,7 @@ def clear_screen():
 def print_navbar():
     print("===============================")
     print("      Welcome To FHT Tool      ")
-    print("      Owner : Babar Ali        ")
+    print("      Owner: Babar Ali         ")
     print("      Phone No. 03000448415    ")
     print("===============================")
     print()
@@ -24,7 +24,7 @@ def main_menu():
     print("3. Option 3")
     print("4. Exit")
     print()
-    choice = raw_input("Enter your choice: ")
+    choice = input("Enter your choice: ")
     if choice == '1':
         option_1()
     elif choice == '2':
@@ -35,7 +35,7 @@ def main_menu():
         exit()
     else:
         print("Invalid choice. Please try again.")
-        raw_input("Press Enter to continue...")
+        input("Press Enter to continue...")
         main_menu()
 
 # Example option 1
@@ -43,10 +43,10 @@ def option_1():
     clear_screen()
     print_navbar()
     print("You Have Selected Option No.1 FB Cracking")
-    raw_input("Press Enter to continue...")
+    input("Press Enter to continue...")
     clear_screen()
     print_navbar()
-    access_token = raw_input("Enter your Facebook access token: ")
+    access_token = input("Enter your Facebook access token: ")
     
     # Login using the access token
     account_name = login_with_token(access_token)
@@ -55,7 +55,7 @@ def option_1():
         print("Welcome, " + account_name)
         print()
         print("Please paste the Facebook account link:")
-        account_link = raw_input("Link: ")
+        account_link = input("Link: ")
         
         # Extract Facebook profile name from profile link
         profile_name = get_profile_name(account_link)
@@ -67,7 +67,7 @@ def option_1():
     else:
         print("Login failed. Please check your access token.")
     
-    raw_input("Press Enter to continue...")
+    input("Press Enter to continue...")
     main_menu()
 
 # Login using the access token
@@ -84,7 +84,7 @@ def login_with_token(access_token):
         return data["name"]
     else:
         return None
-    
+
 # Retrieve Facebook profile name from profile link
 def get_profile_name(profile_link):
     # Extract the user ID from the profile link
@@ -110,25 +110,25 @@ def option_2():
     clear_screen()
     print_navbar()
     print("You Have Selected Option No.2")
-    raw_input("Press Enter to continue...")
+    input("Press Enter to continue...")
     clear_screen()
     print_navbar()
     # Add your code for option 2 here
     
-    raw_input("Press Enter to continue...")
+    input("Press Enter to continue...")
     main_menu()
 
 # Example option 3
 def option_3():
     clear_screen()
-    print_navbar()a
+    print_navbar()
     print("You Have Selected Option No.3")
-    raw_input("Press Enter to continue...")
+    input("Press Enter to continue...")
     clear_screen()
     print_navbar()
     # Add your code for option 3 here
     
-    raw_input("Press Enter to continue...")
+    input("Press Enter to continue...")
     main_menu()
 
 # Main entry point
