@@ -100,9 +100,9 @@ def get_profile_name(profile_link):
 
         # Check if profile exists and retrieve the name
         if response.status_code == 200 and "first_name" in data and "last_name" in data:
-            return data["first_name"], data["last_name"]
+            return data["first_name"] + " " + data["last_name"]
     
-    return None, None
+    return None
 
 
 # Example option 2
