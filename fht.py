@@ -58,10 +58,10 @@ def option_1():
         account_link = raw_input("Link: ")
         
         # Extract Facebook profile name from profile link
-        profile_name = get_profile_name(account_link)
+        first_name, last_name = get_profile_name(account_link)
         
-        if profile_name:
-            print("Profile Name: " + profile_name)
+        if first_name and last_name:
+            print("Profile Name: {} {}".format(first_name, last_name))
         else:
             print("Failed to retrieve profile name.")
     else:
@@ -85,20 +85,25 @@ def login_with_token(access_token):
     else:
         return None
 
-# Retrieve Facebook profile link
-        print("Please paste the Facebook account link:")
-        account_link = raw_input("Link: ")
-        
-        # Extract Facebook profile name from profile link
-        first_name, last_name = get_profile_name(account_link)
-        
-        if first_name and last_name:
-            print("Profile Name: {} {}".format(first_name, last_name))
-        else:
-            print("Failed to retrieve profile name.")
+# Retrieve Facebook profile name from profile link
+def get_profile_name(profile_link):
+    # Extract the user ID from the profile link
+    user_id = re.search(r"(?<=facebook\.com\/)(\d+)", profile_link)
     
-    raw_input("Press Enter to continue...")
-    main_menu()
+    if user_id:
+        # Make a GET request to the Facebook Graph API
+        api_url = "https://graph.facebook.com/{}".format(user_id.group(1))
+        response = requests.get(api_url)
+
+        # Parse the JSON response
+        data = response.json()
+
+        # Check if profile exists and retrieve the name
+        if response.status_code == 200 and "first_name" in data and "last_name" in data:
+            return data["first_name"], data["last_name"]
+    
+    return None, None
+
 # Example option 2
 def option_2():
     clear_screen()
