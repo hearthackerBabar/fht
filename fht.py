@@ -85,24 +85,16 @@ def login_with_token(access_token):
     else:
         return None
 
-# Retrieve Facebook profile name from profile link
-def get_profile_name(profile_link):
-    # Extract the user ID from the profile link
-    user_id = re.search(r"(?<=facebook\.com\/)(\d+)", profile_link)
+        # Extract Facebook profile name from profile link
+        first_name, last_name = get_profile_name(account_link)
+        
+        if first_name and last_name:
+            print("Profile Name: {} {}".format(first_name, last_name))
+        else:
+            print("Failed to retrieve profile name.")
     
-    if user_id:
-        # Make a GET request to the Facebook Graph API
-        api_url = "https://graph.facebook.com/" + user_id.group(1)
-        response = requests.get(api_url)
-
-        # Parse the JSON response
-        data = response.json()
-
-        # Check if profile exists and retrieve the name
-        if response.status_code == 200 and "name" in data:
-            return data["name"]
-    
-    return None
+    raw_input("Press Enter to continue...")
+    main_menu()
 
 # Example option 2
 def option_2():
